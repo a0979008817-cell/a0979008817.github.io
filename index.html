@@ -1,109 +1,265 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
+ <!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-   <div align="center">
-  <img src="1775721002142.png" alt="數位人文網誌封面" width="100%" style="max-width: 800px; border-radius: 8px;">
-   </div>
-  
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的數位人文筆記</title>
+    <title>戰爭都市生存指南 — 離線交互電子書版</title>
     <style>
+        :root {
+            --bg-color: #0b132b;
+            --sidebar-bg: #1c2541;
+            --text-color: #e0e1dd;
+            --accent-color: #f4a261;
+            --border-color: #3a506b;
+            --code-bg: #111a36;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: "Noto Sans TC", Arial, sans-serif;
-            line-height: 1.8;
-            margin: 0;
-            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            display: flex;
         }
-        header {
-            background-color: #2c3e50;
-            color: white;
+
+        /* 側邊欄導覽 */
+        #sidebar {
+            width: 280px;
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
             padding: 20px;
-            text-align: center;
         }
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        img {
-            width: 100%;
-            border-radius: 10px;
+        #sidebar h2 {
+            font-size: 1.2rem;
+            color: var(--accent-color);
             margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
         }
-        h2 {
-            color: #34495e;
+        #sidebar ul { list-style: none; }
+        #sidebar li { margin-bottom: 10px; }
+        #sidebar a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
-        section {
-            margin-bottom: 25px;
+        #sidebar a:hover { color: var(--accent-color); }
+        #sidebar .sub-menu { padding-left: 15px; margin-top: 5px; font-size: 0.85rem; }
+
+        /* 主要內容區 */
+        main {
+            margin-left: 280px;
+            padding: 40px 60px;
+            max-width: 900px;
+            width: 100%;
         }
-        footer {
-            text-align: center;
+
+        h1 { color: var(--accent-color); font-size: 2.2rem; margin-bottom: 20px; }
+        h2 { color: var(--accent-color); font-size: 1.6rem; margin-top: 40px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        h3 { font-size: 1.2rem; margin-top: 20px; margin-bottom: 10px; color: #fff; }
+        p { margin-bottom: 15px; text-align: justify; }
+        ul, ol { margin-bottom: 15px; padding-left: 20px; }
+        li { margin-bottom: 5px; }
+
+        /* 警告與提示框 */
+        .alert-box {
+            background-color: #781d1d;
+            border-left: 5px solid #ff4d4d;
             padding: 15px;
-            color: #777;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .tip-box {
+            background-color: var(--code-bg);
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        /* 預留圖檔樣式 */
+        .survival-img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            margin: 20px 0;
+            display: block;
+            background-color: #111;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .img-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* 手機板響應式優化 */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            #sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border-color); }
+            main { margin-left: 0; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>數位人文學習筆記</h1>
-    <p>探索科技與人文的交會</p>
-</header>
+    <!-- 側邊欄導覽 -->
+    <nav id="sidebar">
+        <h2>戰時離線手冊目錄</h2>
+        <ul>
+            <li><a href="#preface">前言：當日常成為戰場</a></li>
+            <li>
+                <a href="#chapter1">第一章：隱藏水源</a>
+                <ul class="sub-menu">
+                    <li><a href="#sec1-1">1.1 建築內靜態殘存水</a></li>
+                    <li><a href="#sec1-2">1.2 公共設施與自然採集</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#chapter2">第二章：被遺忘的物資</a>
+                <ul class="sub-menu">
+                    <li><a href="#sec2-1">2.1 過期品真相</a></li>
+                    <li><a href="#sec2-2">2.2 戰時三大醫療物資</a></li>
+                    <li><a href="#sec2-3">2.3 鋁罐簡易加熱爐</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#chapter3">第三章：低科技通訊</a>
+                <ul class="sub-menu">
+                    <li><a href="#sec3-1">3.1 摩斯密碼對照表</a></li>
+                    <li><a href="#sec3-2">3.2 光信號發送與求救</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-<main>
-    <img src="圖檔.png" alt="數位人文相關圖片">
+    <!-- 主要內容 -->
+    <main>
+        <!-- 書名 -->
+        <h1 style="font-size: 3rem; text-align: center; margin-top: 40px; margin-bottom: 10px;">戰爭都市生存指南</h1>
+        <p style="text-align: center; color: #888; margin-bottom: 50px;">[ 電子書 1.0 離線安全認證版 / LOCAL DATA ONLY ]</p>
 
-    <section>
-        <h2>什麼是數位人文？</h2>
-        <p>
-            數位人文是運用數位科技來支撐、分析與發展人文學科的一種跨領域方法，
-            透過科技讓人文知識得以保存、呈現、分析與創新。
-        </p>
-    </section>
+        <!-- 【位置 1：預留書本封面圖】 -->
+        <img src="book_cover.png" alt="戰爭都市生存指南 書籍封面預留位置" class="survival-img">
+        <div class="img-caption">圖 1：手冊封面與防水尼龍繩裝訂示意圖</div>
 
-    <section>
-        <h2>科技支撐人文的五個功能</h2>
+        <hr style="border-color: var(--border-color); margin: 40px 0;">
 
-        <h3>(1) 用科技典藏人文</h3>
-        <p>
-            透過數位典藏技術，將歷史、宗教、哲學與藝術等內容轉化為圖文或影音資料，
-            進行2D或3D的紀錄與保存，使文化得以傳承與長久保存。
-        </p>
+        <!-- 前言 -->
+        <section id="preface">
+            <h2>前言：當日常成為戰場</h2>
+            <p>這不是一本寫給特種部隊的軍事教材，而是一本寫給生活在水泥叢林中、手無寸鐵的普通人的「存續手冊」。</p>
+            <p>長年以來，地緣政治的陰影始終籠罩著台灣。我們習慣了 24 小時便利商店、充足的電力、轉開就有自來水的生活，並且極度依賴智慧型手機與網路。然而，一旦地緣政治衝突演變成實體戰爭，現代化的城市系統將會在 48 小時內發生連鎖反應式的崩潰。</p>
+            <p>當飛彈襲擊、網路底層基礎設施（如海底電纜、基地台）遭到實體破壞、國家電網癱瘓，城市將瞬間陷入「數位真空」與「孤島化」。電子支付失效（手頭的數位資產歸零）、GPS 失靈、物流鏈斷裂、超商貨架被迅速清空。</p>
+            <p>大部分的生存書籍都教你如何在野外鑽木取火、搭建樹屋或辨識野生植物。但在台灣，超過 80% 的人居住在都市。當你受困在 12 樓的租屋套房，身邊只有幾坪大的空間，甚至連一把螺絲起子都沒有時，野外求生知識對你毫無幫助。</p>
+            <p>你必須學會「都市生存」的邏輯。城市並非荒野，它是一個巨大的資源倉庫，只是它們不再以「商品」的形式存在。本指南將帶你拋棄數位依賴，在文明停擺的極端環境下，利用都市廢棄物與建築結構，奪回你的生存權。</p>
+        </section>
 
-        <h3>(2) 用科技呈現人文</h3>
-        <p>
-            利用光雕投影、AR/VR/MR、互動地圖與數位媒體等方式，
-            讓人們能隨時隨地接觸人文內容，提升體驗與感受。
-        </p>
+        <!-- 第一章 -->
+        <section id="chapter1">
+            <h2>第一章：數位真空下的隱藏水源</h2>
+            <p>戰爭爆發後，自來水廠通常會因為斷電或基礎設施受損而停止供水。在沒有網路、無法購買瓶裝水的情況下，你必須在脫水致命的「黃金 3 天」內，從建築與城市設施中挖掘出隱藏的「靜態儲水」。</p>
+            
+            <h3 id="sec1-1">1.1 建築內的「靜態殘存水」</h3>
+            <p>在停水初期，大樓管線與家電中仍存有大量未受污染的乾淨水，這是你的優先目標：</p>
+            <ul>
+                <li><strong>儲熱式熱水器：</strong> 這是都市公寓中最大的「隱藏水壺」。一台家用熱水器通常存有 30 至 50 公升的乾淨水。只要關閉進水閥（防止外部受污染的水倒流），打開底部的洩水閥或出水口即可取水。</li>
+                <li><strong>馬桶後方水箱：</strong> 注意，是後方的方正水箱，而非馬桶池。只要平時沒有放置化學清潔劑（如藍藍香），水箱內的水煮沸後完全可以飲用（每桶約有 6 至 12 公升）。</li>
+                <li><strong>大樓消防管線與灑水系統：** 建築物的消防管線中常年充滿加壓水。透過低樓層或地下室的消防洩壓閥，可以排出一部分積水。（*注意：此水源可能含有大量鐵鏽，必須高度過濾與煮沸。*）</li>
+            </ul>
 
-        <h3>(3) 用科技分析人文</h3>
-        <p>
-            透過大數據分析、資料探勘與視覺化技術，
-            深入理解文本與歷史，並探索更多人文意義與研究方法。
-        </p>
+            <!-- 【位置 2：預留都市水源地圖】 -->
+            <img src="urban_water_map.png" alt="都市隱藏水源地圖預留位置" class="survival-img">
+            <div class="img-caption">圖 2：建築物斷電停水後的「靜態殘存水」分佈剖面圖</div>
 
-        <h3>(4) 用科技促進人文流通</h3>
-        <p>
-            透過區塊鏈、NFT與虛擬貨幣等技術，
-            促進數位藝術與人文創作的流通與收藏。
-        </p>
+            <h3 id="sec1-2">1.2 城市公共設施與自然採集</h3>
+            <ul>
+                <li><strong>辦公大樓與學校飲水機：</strong> 辦公大樓多半使用大型桶裝水（每桶約 19 公升）或備有大型儲水槽。在停電後，雖然控制面板無法運作，但可以直接拆開外殼或用物理方式破壞管道取水。</li>
+                <li><strong>晨露收集法（都市版）：** 在公寓頂樓或水泥天台上，利用保鮮膜或乾淨的塑料袋覆蓋盆栽植物或雜草，利用植物的蒸散作用，可以在袋內收集到極為乾淨的蒸餾水。</li>
+                <li><strong>在地化物理水井：** 以中南部都市邊緣（如嘉義民雄等舊聚落地區）為例，許多老舊透天厝、廟宇周邊或舊農地旁，仍保有傳統的手壓式地下水幫浦。在電力癱瘓的世界，這種不需要電力的物理抽水工具具有最高的戰略價值。</li>
+            </ul>
+        </section>
 
-        <h3>(5) 科技與人文融匯後的創新</h3>
-        <p>
-            數位科技與人文的結合，帶來跨領域創新，
-            如數位遊戲、數位展演、數位出版等，開創無限可能。
-        </p>
+        <!-- 第二章 -->
+        <section id="chapter2">
+            <h2>第二章：走進超市與街道，尋找被遺忘的物資</h2>
+            <p>衝突爆發後，超市與大賣場會在第一時間遭到恐慌性搶購。當主流物資被搜刮一空後，你必須學會辨識那些「被一般人遺忘、但極具價值」的資源。</p>
 
-    </section>
-</main>
+            <!-- 【位置 3：預留超市搜刮圖解】 -->
+            <img src="supermarket_loot.png" alt="超市與街道被遺忘物資圖解預留位置" class="survival-img">
+            <div class="img-caption">圖 3：廢棄超市搜刮指南與安全食品清單</div>
+            
+            <h3 id="sec2-1">2.1 過期品真相：哪些食物過期了還能吃？</h3>
+            <p>在資源極度匱乏時，食品包裝上的「有效期限」不再是絕對標準，你必須了解食物的物理特性：</p>
+            <ul>
+                <li><strong>純蜂蜜：** 只要沒有混入水分，純蜂蜜的滲透壓極高、水分極低，細菌無法繁殖。即使過了包裝上的期限，它依然是完美的熱量來源，且永遠不會變質。</li>
+                <li><strong>未破損的罐頭：** 罐頭在製造時已經過高溫殺菌與真空密封。只要罐體沒有**膨脹（鼓起）、嚴重凹陷、或是鏽蝕穿孔**，即便過期數年，內部的食物依然保持無菌安全。</li>
+                <li><strong>乾麵條與義大利麵：** 只要儲存環境保持絕對乾燥，沒有發霉或長蟲，純乾麵條可以近乎無限期保存。</li>
+            </ul>
 
-<footer>
-    <p>© 2026 我的個人網誌</p>
-</footer>
+            <h3 id="sec2-2">2.2 藥品與急救：戰時的三大核心醫療物資</h3>
+            <div class="alert-box">
+                <strong>⚠️ 戰時醫療警告：</strong> 在戰區，普通的感冒或小傷口感染都可能致命。在廢棄的藥局或屈臣氏中，請優先搶救以下三樣防禦性物資：
+            </div>
+            <ul>
+                <li><strong>止痛藥（乙醯胺酚/布洛芬）：** 不僅僅是止痛，更重要的是**退燒**。在缺乏醫療照顧時，持續的高燒會摧毀人體免疫力。</li>
+                <li><strong>廣效性抗生素：** 用於對抗傷口發炎與細菌感染。戰時最常見的死因之一，往往是皮膚被瓦礫割傷後引發的敗血症。</li>
+                <li><strong>高濃度消毒酒精：** 用於傷口周圍清潔與醫療工具的物理消毒。在極端情況下，酒精也可以作為引火的燃料。</li>
+            </ul>
+
+            <h3 id="sec2-3">2.3 工具再造：如何用鋁罐與蠟燭做出簡易加熱爐</h3>
+            <p>當瓦斯中斷、電力全無時，生火煮水成了難題。你不能在室內隨便燒木頭（會因濃煙窒息或暴露位置）。你可以利用都市隨處可見的垃圾製造「無煙加熱爐」：</p>
+            
+            <!-- 【位置 4：預留鋁罐爐步驟圖】 -->
+            <img src="aluminum_stove.png" alt="鋁罐加熱爐製作步驟預留位置" class="survival-img">
+            <div class="img-caption">圖 4：利用廢棄鋁罐與棉質鞋帶製作物理加熱爐步驟拆解</div>
+
+            <div class="tip-box">
+                <strong>🛠️ 簡易物理爐製作四步驟：</strong>
+                <ol>
+                    <li>用美工刀將鋁罐從中間橫向切開，保留下半部（做成一個小碗狀）。</li>
+                    <li>在鋁罐下半部的邊緣，對稱地剪出幾處小的 V 字型缺口（這是為了讓空氣流通，防止火熄滅）。</li>
+                    <li>將短蠟燭固定在中心點燃；或者在罐內倒入食用油（如沙拉油），放入一截棉質鞋帶作為燈芯並點燃。</li>
+                    <li>將不鏽鋼鋼杯架在有缺口的鋁罐上。這個簡易的物理爐具足以在 10 分鐘內將一小杯水煮沸。</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 第三章 -->
+        <section id="chapter3">
+            <h2>第三章：低科技通訊與信號防禦</h2>
+            <p>當現代通訊（4G/5G/Wi-Fi）因戰爭中斷，城市裡的大樓將成為一座座資訊孤島。掌握低科技的物理通訊，是與外界建立連繫、發出求救訊號的唯一手段。</p>
+
+            <h3 id="sec3-1">3.1 摩斯密碼與光信號對照表</h3>
+            <p>利用手電筒、鏡子反射陽光、或是敲擊大樓水管，可以傳遞關鍵的英文字母。以下為戰時最核心的求救對照代碼：</p>
+            
+            <!-- 【位置 5：預留摩斯密碼表】 -->
+            <img src="morse_code_table.png" alt="摩斯密碼與光信號對照表預留位置" class="survival-img">
+            <div class="img-caption">圖 5：戰時緊急求救摩斯密碼與光通訊對照表</div>
+
+            <h3 id="sec3-2">3.2 光信號發送與安全守則</h3>
+            <ul>
+                <li><strong>SOS 國際求救訊號：</strong> 三短光（···）、三長光（---）、三短光（···）。重複此循環。</li>
+                <li><strong>光源選擇：** 智慧型手機的補光燈雖然亮度高，但耗電極快。在長期斷電下，應優先使用傳統**LED手電筒**，或拆卸手錶、碎裂的手機螢幕反射太陽光（無能耗通訊）。</li>
+                <li><strong>防禦守則：** 發送信號時，切勿直接暴露出自己的具體窗口位置。建議在房間內部深處向外照射，或利用鏡子折射，避免被敵方偵查或引來不法之徒。</li>
+            </ul>
+        </section>
+
+        <footer style="margin-top: 100px; padding: 20px 0; border-top: 1px solid var(--border-color); text-align: center; color: #666; font-size: 0.85rem;">
+            《戰爭都市生存指南》| 願此書永遠只是一份作業，而非真實的教科書。
+        </footer>
+    </main>
 
 </body>
 </html>
